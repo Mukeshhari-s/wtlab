@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     async function loadMembers() {
         try {
-            const response = await fetch('http://localhost:5000/api/members', {
+            const response = await fetch('/api/members', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
