@@ -1,4 +1,4 @@
-/* Reset and Base Styles */
+/* Mobile-first approach */
 * {
     margin: 0;
     padding: 0;
@@ -14,22 +14,24 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Navigation Styles */
+/* Navbar styles */
 .navbar {
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 15px 0;
-    position: fixed;
     width: 100%;
-    z-index: 100;
+    background: rgba(0, 0, 0, 0.9);
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    padding: 10px;
 }
 
 .nav-container {
+    width: 100%;
+    padding: 0 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
 }
 
 .logo {
@@ -40,12 +42,19 @@ html {
 }
 
 .nav-links {
-    display: flex;
+    display: none; /* Hide by default on mobile */
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
     list-style: none;
-}    
+}
+
+.nav-links.active {
+    display: flex;
+}
 
 .nav-links li {
-    margin-left: 30px;
+    margin: 10px 0;
 }
 
 .nav-links a {
@@ -107,9 +116,19 @@ html {
     border-color: #ff8533;
 }
 
+/* Mobile menu button */
+.menu-toggle {
+    display: block;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+}
+
 /* Hero Section */
 .hero {
-    height: 100vh;
+    padding-top: 60px;
+    min-height: 100vh;
     position: relative;
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
                 url('./img1.jpg') center/cover;
@@ -123,7 +142,7 @@ html {
 
 .hero-content {
     max-width: 800px;
-    padding: 0 20px;
+    padding: 20px;
 }
 
 .hero h1 {
@@ -157,8 +176,9 @@ html {
 
 .equipment-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 15px;
     margin: 0 auto;
 }
 
@@ -168,6 +188,7 @@ html {
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    width: 100%;
 }
 
 .equipment-image {
@@ -207,12 +228,17 @@ html {
 }
 
 .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 50px;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 15px;
+}
+
+.contact-info {
+    width: 100%;
+    margin: 10px 0;
 }
 
 .contact-info h3 {
@@ -251,6 +277,8 @@ html {
     background: rgba(255, 255, 255, 0.1);
     padding: 30px;
     border-radius: 10px;
+    width: 100%;
+    margin: 10px 0;
 }
 
 .contact-form h3 {
@@ -549,5 +577,43 @@ html {
     .nav-links {
         flex-direction: column;
         align-items: center;
+    }
+}
+
+/* Desktop styles */
+@media screen and (min-width: 768px) {
+    .menu-toggle {
+        display: none;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        width: auto;
+    }
+
+    .nav-links li {
+        margin: 0 15px;
+    }
+
+    .equipment-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 30px;
+    }
+
+    .contact-content {
+        flex-direction: row;
+    }
+
+    .contact-info,
+    .contact-form {
+        width: 48%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .equipment-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
