@@ -1,35 +1,44 @@
+/* Reset and base styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
     font-family: 'Arial', sans-serif;
 }
 
+/* Mobile-first approach */
 body {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
                       url('./img1.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     color: white;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 .navbar {
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 15px 0;
     width: 100%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.9);
+    position: fixed;
+    top: 0;
+    z-index: 1000;
 }
 
 .nav-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
 }
 
 .logo {
@@ -41,6 +50,10 @@ body {
 
 .nav-links {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
     list-style: none;
 }
 
@@ -61,18 +74,19 @@ body {
 }
 
 .main-content {
+    margin-top: 70px;
+    padding: 15px;
     flex: 1;
-    padding: 50px 20px;
 }
 
 .add-member-container {
-    background: white;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.8);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 600px;
-    width: 95%;
 }
 
 .section-title {
@@ -83,7 +97,7 @@ body {
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     width: 100%;
     position: relative;
 }
@@ -97,12 +111,14 @@ body {
 .form-group input,
 .form-group select {
     width: 100%;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    color: white;
+    padding: 12px;
     font-size: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .form-group select option {
@@ -146,6 +162,7 @@ footer {
     color: #aaa;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;
@@ -163,79 +180,34 @@ footer {
     }
 }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    .navbar {
-        padding: 10px;
+/* Desktop styles */
+@media screen and (min-width: 768px) {
+    .nav-links {
+        flex-direction: row;
+        justify-content: flex-end;
     }
 
     .nav-container {
-        flex-direction: column;
+        display: flex;
+        justify-content: space-between;
         align-items: center;
     }
 
-    .nav-links {
-        margin-top: 10px;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-    }
-
-    .nav-links li {
-        margin: 5px 0;
-    }
-
     .main-content {
-        padding: 10px;
+        margin-top: 80px;
+        padding: 30px;
     }
 
     .add-member-container {
-        width: 95%;
-        margin: 10px auto;
-        padding: 15px;
+        padding: 30px;
     }
+}
 
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group input,
-    .form-group select {
-        width: 100%;
-        padding: 8px;
-    }
-
-    .submit-btn {
-        width: 100%;
-        margin-top: 20px;
-    }
-
-    /* Login/Signup form responsiveness */
-    .auth-container {
-        width: 95%;
-        margin: 20px auto;
-        padding: 15px;
-    }
-
-    /* View members responsiveness */
-    .view-controls {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .search-bar {
-        width: 100%;
-    }
-
-    .view-toggle {
-        width: 100%;
-        justify-content: center;
-    }
-
-    /* Card view for mobile */
-    .member-card {
-        width: 100%;
-        margin: 10px 0;
+/* Fix iOS form elements */
+@supports (-webkit-touch-callout: none) {
+    input,
+    select {
+        font-size: 16px !important;
     }
 }
 

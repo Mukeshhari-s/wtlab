@@ -222,5 +222,23 @@
     <script>
         fetch('/api/...')
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent zoom on double tap
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+
+            // Prevent zoom on input focus on iOS
+            document.addEventListener('gesturestart', function(event) {
+                event.preventDefault();
+            });
+        });
+    </script>
 </body>
 </html>
