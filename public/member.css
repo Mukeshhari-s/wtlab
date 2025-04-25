@@ -66,11 +66,13 @@ body {
 }
 
 .add-member-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    padding: 30px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    width: 95%;
 }
 
 .section-title {
@@ -82,6 +84,7 @@ body {
 
 .form-group {
     margin-bottom: 20px;
+    width: 100%;
     position: relative;
 }
 
@@ -94,10 +97,10 @@ body {
 .form-group input,
 .form-group select {
     width: 100%;
-    padding: 12px;
+    padding: 10px;
     background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     color: white;
     font-size: 16px;
 }
@@ -157,5 +160,98 @@ footer {
     
     .nav-links li {
         margin: 5px 10px;
+    }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 10px;
+    }
+
+    .nav-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        margin-top: 10px;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links li {
+        margin: 5px 0;
+    }
+
+    .main-content {
+        padding: 10px;
+    }
+
+    .add-member-container {
+        width: 95%;
+        margin: 10px auto;
+        padding: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 8px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    /* Login/Signup form responsiveness */
+    .auth-container {
+        width: 95%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    /* View members responsiveness */
+    .view-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+
+    .view-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Card view for mobile */
+    .member-card {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+
+/* Additional mobile-specific adjustments */
+@media screen and (max-width: 480px) {
+    .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .error-message {
+        font-size: 0.9rem;
+        padding: 8px;
     }
 }
