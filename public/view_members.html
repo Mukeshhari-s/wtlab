@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Members - FitLife Gym</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                              url('./img1.jpg');  /* Using the same image as index page */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            width: 100%;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            color: #ff6b00;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ff6b00;
+        }
+        .main-content {
+            flex: 1;
+            padding: 50px 20px;
+        }
+        
+        .members-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #ff6b00;
+        }
+        .search-filter {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .search-box {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .filter-box {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-select {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .filter-select option {
+            background-color: #333;
+            color: white;
+        }
+        .members-table-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        
+        .members-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        
+        .members-table th,
+        .members-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .members-table th {
+            background-color: rgba(255, 107, 0, 0.2);
+            color: #ff6b00;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+        
+        .members-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .membership-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .basic {
+            background-color: #3498db;
+        }
+        
+        .gold {
+            background-color: #f39c12;
+        }
+        
+        .platinum {
+            background-color: #9b59b6;
+        }
+        
+        .no-members {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #ccc;
+        }
+        
+        .members-cards {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .member-card {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .member-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .card-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .card-item {
+            margin-bottom: 10px;
+        }
+        
+        .card-label {
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 3px;
+        }
+        
+        .card-value {
+            font-size: 16px;
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .footer-text {
+            font-size: 14px;
+            color: #aaa;
+        }
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 5px 10px;
+            }
+            
+            .members-table-container {
+                display: none;
+            }
+            
+            .members-cards {
+                display: grid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">FitLife Gym</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="add_member.html">Add Member</a></li>
+                <li><a href="view_members.html" class="active">View Members</a></li>
+            </ul>
+        </div>
+    </nav>
+       <div class="main-content">
+        <div class="members-container">
+            <h1 class="section-title">All Members</h1>
+            <div class="search-filter">
+                <div class="search-box">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search by name, email, or phone...">
+                </div>
+                <div class="filter-box">
+                    <select class="filter-select" id="membershipFilter">
+                        <option value="">All Membership Types</option>
+                        <option value="basic">Basic</option>
+                        <option value="gold">Gold</option>
+                        <option value="platinum">Platinum</option>
+                    </select>
+                </div>
+                <div class="filter-box">
+                    <select class="filter-select" id="timingFilter">
+                        <option value="">All Timings</option>
+                        <option value="morning">Morning</option>
+                        <option value="afternoon">Afternoon</option>
+                        <option value="evening">Evening</option>
+                        <option value="night">Night</option>
+                        <option value="flexible">Flexible</option>
+                    </select>
+                </div>
+            </div>
+            <div class="members-table-container">
+                <table class="members-table" id="membersTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Contact</th>
+                            <th>Membership</th>
+                            <th>Duration</th>
+                            <th>Timing</th>
+                            <th>Start Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="membersTableBody">
+                    </tbody>
+                </table>
+                <div id="noMembersMessage" class="no-members" style="display: none;">
+                    No members found. <a href="add_member.html" style="color: #ff6b00;">Add a new member</a>.
+                </div>
+            </div>
+            <div class="members-cards" id="membersCards">
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p class="footer-text">&copy; 2025 FitLife Gym. All Rights Reserved.</p>
+    </footer>
+    <script>
+document.addEventListener('DOMContentLoaded', async function() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    let members = [];
+    const tableBody = document.getElementById('membersTableBody');
+    const cardsContainer = document.getElementById('membersCards');
+    const noMembersMessage = document.getElementById('noMembersMessage');
+    const searchInput = document.getElementById('searchInput');
+    const membershipFilter = document.getElementById('membershipFilter');
+    const timingFilter = document.getElementById('timingFilter');
+
+    async function loadMembers() {
+        try {
+            const response = await fetch('http://localhost:5000/api/members', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message || 'Failed to fetch members');
+            }
+
+            members = await response.json();
+            console.log('Loaded members data:', members); // Debug log
+            displayMembers(members);
+        } catch (error) {
+            console.error('Error loading members:', error);
+            noMembersMessage.textContent = 'Error loading members: ' + error.message;
+            noMembersMessage.style.display = 'block';
+        }
+    }
+
+    // Replace the existing displayMembers function
+    function displayMembers(filteredMembers = members) {
+        tableBody.innerHTML = '';
+        cardsContainer.innerHTML = '';
+        if (!filteredMembers || filteredMembers.length === 0) {
+            noMembersMessage.style.display = 'block';
+            return;
+        }
+        noMembersMessage.style.display = 'none';
+        filteredMembers.forEach(member => {
+            const startDate = member.startDate ? new Date(member.startDate).toLocaleDateString() : '';
+            const duration = member.duration ? `${member.duration} ${member.duration > 1 ? 'months' : 'month'}` : '';
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${member.name}</td>
+                <td>${member.age}</td>
+                <td>${member.phone}<br>${member.email}</td>
+                <td><span class="membership-badge ${member.plan.toLowerCase()}">${member.plan}</span></td>
+                <td>${duration}</td>
+                <td>${member.timing}</td>
+                <td>${startDate}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function filterMembers() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const membershipValue = membershipFilter.value;
+        const timingValue = timingFilter.value;
+        
+        const filtered = members.filter(member => {
+            const matchesSearch = 
+                member.name.toLowerCase().includes(searchTerm) ||
+                member.email.toLowerCase().includes(searchTerm) ||
+                member.phone.includes(searchTerm);
+            const matchesMembership = !membershipValue || member.plan.toLowerCase() === membershipValue;
+            const matchesTiming = !timingValue || member.timing.toLowerCase() === timingValue;
+            
+            return matchesSearch && matchesMembership && matchesTiming;
+        });
+        
+        displayMembers(filtered);
+    }
+
+    // Initial load
+    await loadMembers();
+    
+    // Event listeners
+    searchInput.addEventListener('input', filterMembers);
+    membershipFilter.addEventListener('change', filterMembers);
+    timingFilter.addEventListener('change', filterMembers);
+});
+</script>
+</body>
+</html>

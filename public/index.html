@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife Gym - Your Fitness Partner</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" as="image" href="./img1.jpg">
+    <link rel="preload" as="image" href="./img2.jpg">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">FitLife Gym</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#equipment">Equipment</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#member-management">Member Management</a></li>
+                <li class="auth-buttons">
+                    <a href="login.html" class="login-btn">Login</a>
+                    <a href="signup.html" class="signup-btn">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Transform Your Body, Transform Your Life</h1>
+            <p>FitLife Gym offers state-of-the-art equipment, expert trainers, and a supportive community to help you achieve your fitness goals.</p>
+            <a href="#member-management" class="cta-button">Join Today</a>
+        </div>
+    </div>
+    <section id="equipment" class="equipment">
+        <div class="section-container">
+            <h2 class="section-title">Our Equipment</h2>
+            <div class="equipment-grid">
+                <div class="equipment-card">
+                    <div class="equipment-image">
+                        <img src="./img1.jpg" alt="Free Weights" loading="lazy">
+                    </div>
+                    <div class="equipment-details">
+                        <h3>Free Weights Area</h3>
+                        <p>Complete set of dumbbells, barbells, and weight plates for strength training.</p>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">
+                        <img src="./img2.jpg" alt="Cardio Equipment" loading="lazy">
+                    </div>
+                    <div class="equipment-details">
+                        <h3>Cardio Zone</h3>
+                        <p>Latest treadmills, ellipticals, and stationary bikes for cardiovascular fitness.</p>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">
+                        <img src="./img3.jpg" alt="Resistance Machines" loading="lazy">
+                    </div>
+                    <div class="equipment-details">
+                        <h3>Resistance Machines</h3>
+                        <p>Modern resistance training equipment for targeted muscle development.</p>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">
+                        <img src="./img4.jpg" alt="Functional Training" loading="lazy">
+                    </div>
+                    <div class="equipment-details">
+                        <h3>Functional Training</h3>
+                        <p>Dedicated area with kettlebells, medicine balls, and TRX equipment.</p>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">
+                        <img src="./img5.jpeg" alt="Stretching Area" loading="lazy">
+                    </div>
+                    <div class="equipment-details">
+                        <h3>Stretching Zone</h3>
+                        <p>Spacious area with mats and foam rollers for flexibility training.</p>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">
+                        <img src="./img1.jpg" alt="Power Racks" loading="lazy">
+                    </div>
+                    <div class="equipment-details">
+                        <h3>Power Racks</h3>
+                        <p>Professional power racks and platforms for serious strength training.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="contact">
+        <div class="section-container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-detail">
+                        <div class="contact-icon">📍</div>
+                        <p>123 ABC Street, DEF City, GHI ,642001</p>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">📞</div>
+                        <p>+91 9867453278</p>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">✉️</div>
+                        <p>fitgym@gmail.com</p>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">🕒</div>
+                        <p>Mon-Fri: 5am - 10pm<br>Sat-Sun: 7am - 8pm</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form id="contactForm" onsubmit="return handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">Send Message</span>
+                            <span class="loading-spinner hidden"></span>
+                        </button>
+                    </form>
+                    <div id="formStatus" class="form-status"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="member-management" class="member-management">
+        <div class="section-container">
+            <h2 class="section-title">Member Management</h2>
+            <p>Access our membership system to add, view member information.</p>
+            <div class="member-links">
+                <a href="add_member.html" class="member-link">Add Member</a>
+                <a href="view_members.html" class="member-link">View Members</a>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#equipment">Equipment</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#member-management">Member Management</a></li>
+            </ul>
+            <p class="footer-text">&copy; 2025 FitLife Gym. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script>
+        const preloadImages = () => {
+            const images = ['./img2.jpg', './img3.jpg', './img4.jpg', './img5.jpeg'];
+            images.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        };
+        window.addEventListener('load', preloadImages);
+    </script>
+    <script>
+        // Add intersection observer for equipment cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.equipment-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.equipment-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, entry.target.dataset.delay || 0);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach((card, index) => {
+                card.dataset.delay = index * 100;
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
