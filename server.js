@@ -9,7 +9,7 @@ const path = require('path');
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Enhanced MongoDB connection
 mongoose.connect(process.env.MONGODB_URI)
@@ -187,6 +187,6 @@ app.get('*', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(5000, '0.0.0.0', () => {
-    console.log('Server running on http://0.0.0.0:5000');
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
 });
