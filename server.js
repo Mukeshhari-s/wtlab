@@ -9,8 +9,8 @@ const path = require('path');
 const app = express();
 app.use(cors());
 app.use(express.json());
+mongoose.set('strictQuery', false);
 
-// Enhanced MongoDB connection
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('Successfully connected to MongoDB Atlas');
@@ -21,8 +21,6 @@ mongoose.connect(process.env.MONGODB_URI)
         console.error('MongoDB connection error:', err);
         process.exit(1);
     });
-
-// Add connection event handlers
 mongoose.connection.on('connected', () => {
     console.log('Mongoose connected to MongoDB Atlas');
 });
@@ -34,12 +32,9 @@ mongoose.connection.on('error', (err) => {
 mongoose.connection.on('disconnected', () => {
     console.log('Mongoose disconnected from MongoDB Atlas');
 });
-
-// Import models
 const User = require('./models/User');
 const Member = require('./models/Member');
 
-// Authentication middleware
 const authenticateUser = async (req, res, next) => {
     try {
         const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -61,27 +56,71 @@ const authenticateUser = async (req, res, next) => {
     }
 };
 
-// Signup Route
 app.post('/api/signup', async (req, res) => {
     try {
-        const { name, email, phone, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
+        console.log('Signup request received:', req.body);
         
+        const { username, email, phone, password } = req.body;
+        if (!username) return res.status(400).json({ error: 'Username is required' });
+        if (!email) return res.status(400).json({ error: 'Email is required' });
+        if (!phone) return res.status(400).json({ error: 'Phone is required' });
+        if (!password) return res.status(400).json({ error: 'Password is required' });
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ error: 'Invalid email format' });
+        }
+
+        const existingUser = await User.findOne({ 
+            $or: [{ email }, { phone }] 
+        });
+        
+        if (existingUser) {
+            if (existingUser.email === email) {
+                return res.status(400).json({ error: 'Email already registered' });
+            }
+            if (existingUser.phone === phone) {
+                return res.status(400).json({ error: 'Phone number already registered' });
+            }
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
         const user = new User({
-            name,
+            username,
             email,
             phone,
             password: hashedPassword
         });
-        
+
         await user.save();
-        res.status(201).json({ message: 'User created successfully' });
+        console.log('User saved successfully:', { 
+            id: user._id, 
+            username: user.username,
+            email: user.email 
+        });
+        const token = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_SECRET,
+            { expiresIn: '24h' }
+        );
+
+        res.status(201).json({
+            message: 'User created successfully',
+            token
+        });
     } catch (error) {
-        res.status(500).json({ error: 'Error creating user' });
+        console.error('Signup error details:', {
+            message: error.message,
+            stack: error.stack,
+            name: error.name
+        });
+        res.status(500).json({ 
+            error: 'Error creating user',
+            details: error.message 
+        });
     }
 });
-
-// Login Route
 app.post('/api/login', async (req, res) => {
     try {
         const { identifier, password } = req.body;
@@ -98,7 +137,6 @@ app.post('/api/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid password' });
         }
         
-        // Generate JWT token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
             expiresIn: '24h'
         });
@@ -112,8 +150,6 @@ app.post('/api/login', async (req, res) => {
         res.status(500).json({ error: 'Error logging in' });
     }
 });
-
-// Add Member Route (Protected)
 app.post('/api/members', authenticateUser, async (req, res) => {
     try {
         const { name, age, phone, email, plan, timing, duration, startDate } = req.body;
@@ -138,19 +174,16 @@ app.post('/api/members', authenticateUser, async (req, res) => {
     }
 });
 
-// Get Members Route (Protected)
 app.get('/api/members', authenticateUser, async (req, res) => {
     try {
         const members = await Member.find({ addedBy: req.user._id });
-        console.log('Retrieved members:', members); // Debug log
+        console.log('Retrieved members:', members); 
         res.json(members);
     } catch (error) {
         console.error('Error fetching members:', error);
         res.status(500).json({ error: 'Error fetching members' });
     }
 });
-
-// Test route to verify everything is working
 app.get('/api/status', async (req, res) => {
     try {
         const stats = {
@@ -163,8 +196,6 @@ app.get('/api/status', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
-// Add this route to test the connection and view members
 app.get('/api/test-db', async (req, res) => {
     try {
         const collections = await mongoose.connection.db.listCollections().toArray();
@@ -179,11 +210,8 @@ app.get('/api/test-db', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
-// Static file serving - move this AFTER all API routes
 app.use(express.static('public'));
 
-// Simple catch-all route for any non-API routes
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });

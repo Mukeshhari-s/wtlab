@@ -1,4 +1,3 @@
-/* Reset and base styles */
 * {
     margin: 0;
     padding: 0;
@@ -6,8 +5,6 @@
     -webkit-tap-highlight-color: transparent;
     font-family: 'Arial', sans-serif;
 }
-
-/* Mobile-first approach */
 body {
     width: 100%;
     min-height: 100vh;
@@ -162,7 +159,6 @@ footer {
     color: #aaa;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;
@@ -179,8 +175,6 @@ footer {
         margin: 5px 10px;
     }
 }
-
-/* Desktop styles */
 @media screen and (min-width: 768px) {
     .nav-links {
         flex-direction: row;
@@ -202,16 +196,12 @@ footer {
         padding: 30px;
     }
 }
-
-/* Fix iOS form elements */
 @supports (-webkit-touch-callout: none) {
     input,
     select {
         font-size: 16px !important;
     }
 }
-
-/* Additional mobile-specific adjustments */
 @media screen and (max-width: 480px) {
     .section-title {
         font-size: 1.5rem;
